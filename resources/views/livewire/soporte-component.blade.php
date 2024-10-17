@@ -188,6 +188,7 @@
                                         <option value="8">Importancia</option>
                                         <option value="9">Servidor</option>
                                         <option value="10">Reunión</option>
+                                        <option value="11">Capacitación</option>
                                     </select>
                                     <p  x-show="!searchTipo">Origen de sistencia</p>
                                 </div>
