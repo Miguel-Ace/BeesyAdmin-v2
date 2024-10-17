@@ -214,15 +214,15 @@
                                 </td>
                                 <td class="border border-slate-700 py-1 px-2 font-medium text-center truncate max-w-[10rem]">{{$info->id}}</td>
                                 <td class="border border-slate-700 py-1 px-2 font-medium {{$info->cliente_id ? 'text-nowrap' : 'text-center'}} overflow-hidden hover:overflow-auto max-w-[10rem]">{{$info->cliente->nombre ?? '-'}}</td>
-                                <td class="border border-slate-700 py-1 px-2 font-medium text-center truncate max-w-[10rem]">{{$info->colaborador->name}}</td>
+                                <td class="border border-slate-700 py-1 px-2 font-medium text-center truncate max-w-[10rem]">{{$info->colaborador->name ?? '-'}}</td>
                                 <td class="border border-slate-700 py-1 px-2 font-medium text-nowrap overflow-hidden hover:overflow-auto max-w-[10rem]">{{$info->problema ?? '-'}}</td>
                                 <td class="border border-slate-700 py-1 px-2 font-medium text-center truncate max-w-[10rem]">{{$info->created_at ?? '-'}}</td>
                                 <td class="border border-slate-700 py-1 px-2 font-medium text-center truncate max-w-[10rem]">{{$info->fecha_prevista_cumplimiento ?? '-'}}</td>
                                 <td class="border border-slate-700 py-1 px-2 font-medium text-center truncate max-w-[10rem]">{{$info->cliente->contacto ?? '-'}}</td>
                                 <td class="border border-slate-700 py-1 px-2 font-medium {{$info->user_cliente_id ? 'text-nowrap' : 'text-center'}} overflow-hidden hover:overflow-auto max-w-[10rem]">{{$info->user_cliente->name ?? '-'}}</td>
                                 <td class="border border-slate-700 py-1 px-2 font-medium text-nowrap overflow-hidden hover:overflow-auto max-w-[10rem]">{{$info->software->nombre ?? '-'}}</td>
-                                <td class="border border-slate-700 py-1 px-2 font-medium text-center truncate max-w-[10rem] {{ $info->prioridad_id == 1 ? 'text-blue-700' : ($info->prioridad_id == 2 ? 'text-yellow-800' : 'text-red-600') }}">{{$info->prioridad->nombre}}</td>
-                                <td class="border border-slate-700 py-1 px-2 font-medium text-center truncate max-w-[10rem] {{ $info->estado_id == 1 ? 'text-blue-700' : ($info->estado_id == 2 ? 'text-yellow-800' : 'text-green-700') }}">{{$info->estado->nombre}}</td>
+                                <td class="border border-slate-700 py-1 px-2 font-medium text-center truncate max-w-[10rem] {{ $info->prioridad_id == 1 ? 'text-blue-700' : ($info->prioridad_id == 2 ? 'text-yellow-800' : 'text-red-600') }}">{{$info->prioridad->nombre ?? '-'}}</td>
+                                <td class="border border-slate-700 py-1 px-2 font-medium text-center truncate max-w-[10rem] {{ $info->estado_id == 1 ? 'text-blue-700' : ($info->estado_id == 2 ? 'text-yellow-800' : 'text-green-700') }}">{{$info->estado->nombre ?? '-'}}</td>
                                 <td class="border border-slate-700 py-1 px-2 font-medium text-center truncate max-w-[10rem]">{{$info->fechaInicioAsistencia ?? '-'}}</td>
                                 <td class="border border-slate-700 py-1 px-2 font-medium text-center truncate max-w-[10rem]">{{$info->fechaFinalAsistencia ?? '-'}}</td>
                                 <td class="border border-slate-700 py-1 px-2 font-medium text-nowrap overflow-hidden hover:overflow-auto max-w-[10rem]">{{$tiempos[$key]}}</td>
