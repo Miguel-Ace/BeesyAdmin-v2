@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Exports\SoporteExport;
+use App\Imports\SoporteImport;
 use App\Mail\EditSoporte;
 use App\Mail\NuevoSoporteBeesy;
 use App\Mail\NuevoSoporteCliente;
@@ -19,12 +20,14 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Mail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
 
 use function PHPSTORM_META\map;
 
 class SoporteComponent extends Component
 {
+    use WithFileUploads;
     use LivewireAlert;
     use WithPagination;
     public $isOpenModal = false;
@@ -41,7 +44,8 @@ class SoporteComponent extends Component
     public $searchProblema = '';
     public $searchSoftware = '';
     public $searchTipo = '';
-
+    public $fileExcel = '';
+    
     // Pendiente
     public function eviarEmail($info, $nuevo = true){
         $coleccion = [
@@ -451,5 +455,13 @@ class SoporteComponent extends Component
         $tiempoRetraso = $this->obtenerHorasAtrasadas($soportes);
 
         return Excel::download(new SoporteExport($soportes, $tiempoTrabajado, $tiempoRetraso), 'Soporte.xlsx');
+    }
+
+    public function importar(){
+        $this->validate([
+            'fileExcel' => 'required|mimes:xlsx,csv',
+        ]);
+
+        Excel::import(new SoporteImport, $this->fileExcel);
     }
 }

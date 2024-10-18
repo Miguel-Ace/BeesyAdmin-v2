@@ -5,6 +5,17 @@
         <p class="text-[1.5rem]">Soportes</p>
 
         <div class="flex gap-5">
+            {{-- <div>
+                <input type="file" class="border w-[6rem]" wire:model='fileExcel'>
+
+                <button
+                class="bg-green-700 rounded-sm font-medium text-[1.3rem] px-3 hover:bg-green-700/95"
+                wire:click='importar'
+                >
+                    Importar
+                </button>
+            </div> --}}
+
             <button 
             class="bg-green-700 rounded-sm font-medium text-[1.3rem] px-3 hover:bg-green-700/95"
             wire:click='exportExcel'
@@ -155,7 +166,7 @@
                                         <option value="">Todo</option>
                                         <option value="1">Asignado</option>
                                         <option value="2">En proceso</option>
-                                        <option value="3">Completado</option>
+                                        <option value="3">Completo</option>
                                     </select>
                                     <p  x-show="!searchEstado">Estado</p>
                                 </div>
