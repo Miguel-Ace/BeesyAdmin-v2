@@ -8,5 +8,5 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/payvalida/webhook');
+Route::post('/payvalida/webhook', [PrincipalController::class, 'postWebhook']);
 Route::get('/payvalida/webhook', [PrincipalController::class, 'handleWebhook']);

@@ -62,6 +62,10 @@ class PrincipalController extends Controller
         return view('subscripciones', compact('id_licencia','name'));
     }
 
+    public function postWebhook()
+    {
+    }
+
     public function handleWebhook(Request $request)
     {
         // Procesar el contenido JSON recibido
