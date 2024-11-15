@@ -229,7 +229,7 @@ class SubscripcionComponent extends Component
 
         $merchant = $data['merchant']; // o cualquier valor que corresponda
         $plan_id = $data['id']; // el valor adecuado para tu plan
-        $start_date = Carbon::parse($licencia->fechaInicio)->format('d-m-Y');
+        $start_date = Carbon::parse($licencia->fechaFinal)->format('d-m-Y');
         $checksum = $this->generarChecksum($data, false);
 
         $customer = [

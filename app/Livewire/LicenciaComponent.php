@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Cliente;
 use App\Models\Licencia;
 use App\Models\Software;
+use App\Models\SubscriptionStatus;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
@@ -52,8 +53,7 @@ class LicenciaComponent extends Component
             });
         })
         ->when($this->searchDateUpdate != null, function($query){
-            $query->where('response_id',null)
-            ->whereRaw('DATE_FORMAT(updated_at, "%Y-%m-%d") LIKE ?', ['%' . $this->searchDateUpdate . '%']);
+            $query->whereRaw('DATE_FORMAT(updated_at, "%Y-%m-%d") LIKE ?', ['%' . $this->searchDateUpdate . '%']);
         })
         ->paginate(10);
         return view('livewire.licencia-component', compact('licencias','clientes','software','intervalos'));
@@ -225,5 +225,38 @@ class LicenciaComponent extends Component
 
         // $plan = Licencia::find($info->id);
         // $plan->update(['response_id' => null]);
+    }
+
+    public function verificarLicencias(){
+        $licencias = Licencia::whereNotNull('plan_id')->get();
+
+        foreach ($licencias as $licencia) {
+            $estadoSuscripcion = SubscriptionStatus::where('po_id',$licencia->subscripcion_id)->where('renovacion',0)->first();
+
+            function updateRenovacion($estadoSuscripcion){
+                $estadoSuscripcion->update([
+                    'renovacion' => 1
+                ]);
+            }
+
+            if ($estadoSuscripcion['status']) {
+                $fechaInicio = Carbon::createFromFormat('Y-m-d', $licencia->fechaInicio);
+                $fechaFinal = Carbon::createFromFormat('Y-m-d', $licencia->fechaFinal);
+    
+                $licencia->update([
+                    'fechaInicio' => $fechaInicio->add((int)$licencia->countIntervalo, $licencia->intervalo),
+                    'fechaFinal' => $fechaFinal->add((int)$licencia->countIntervalo, $licencia->intervalo),
+                ]);
+                updateRenovacion($estadoSuscripcion);
+            }else{
+                $licencia->update([
+                    'plan_id' => null,
+                    'subscripcion_id' => null,
+                ]);
+                updateRenovacion($estadoSuscripcion);
+            }
+        }
+
+        $this->alert('success', 'Renovación completada');
     }
 }

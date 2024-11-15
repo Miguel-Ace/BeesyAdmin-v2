@@ -5,12 +5,14 @@
         <p class="text-[1.5rem]">Licencias</p>
 
         <div class="flex gap-4">
+            @role('Administrador')
             <button
             class="bg-white rounded-sm text-slate-700 font-medium text-[1.3rem] px-3 hover:bg-white/95"
-            wire:click=''
+            wire:click='verificarLicencias'
             >
                 Verificar licencias
             </button>
+            @endrole
 
             <button 
             class="bg-white rounded-sm text-slate-700 font-medium text-[1.3rem] px-3 hover:bg-white/95"
