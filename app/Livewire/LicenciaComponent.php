@@ -239,21 +239,24 @@ class LicenciaComponent extends Component
                 ]);
             }
 
-            if ($estadoSuscripcion['status']) {
-                $fechaInicio = Carbon::createFromFormat('Y-m-d', $licencia->fechaInicio);
-                $fechaFinal = Carbon::createFromFormat('Y-m-d', $licencia->fechaFinal);
-    
-                $licencia->update([
-                    'fechaInicio' => $fechaInicio->add((int)$licencia->countIntervalo, $licencia->intervalo),
-                    'fechaFinal' => $fechaFinal->add((int)$licencia->countIntervalo, $licencia->intervalo),
-                ]);
-                updateRenovacion($estadoSuscripcion);
-            }else{
-                $licencia->update([
-                    'plan_id' => null,
-                    'subscripcion_id' => null,
-                ]);
-                updateRenovacion($estadoSuscripcion);
+
+            if ($estadoSuscripcion != null ) {
+                if ($estadoSuscripcion['status']) {
+                    $fechaInicio = Carbon::createFromFormat('Y-m-d', $licencia->fechaInicio);
+                    $fechaFinal = Carbon::createFromFormat('Y-m-d', $licencia->fechaFinal);
+        
+                    $licencia->update([
+                        'fechaInicio' => $fechaInicio->add((int)$licencia->countIntervalo, $licencia->intervalo),
+                        'fechaFinal' => $fechaFinal->add((int)$licencia->countIntervalo, $licencia->intervalo),
+                    ]);
+                    updateRenovacion($estadoSuscripcion);
+                }else{
+                    $licencia->update([
+                        'plan_id' => null,
+                        'subscripcion_id' => null,
+                    ]);
+                    updateRenovacion($estadoSuscripcion);
+                }
             }
         }
 

@@ -71,7 +71,7 @@ class PrincipalController extends Controller
         
         SubscriptionStatus::create([
             'pv_po_id' => (int) $data['pv_po_id'],
-            'po_id' => $data['po_id'],
+            'po_id' => $data['subscription_id'],
             'status' => $data['status'] == "approved" ? 1 : 0,
             'amount' => (float) $data['amount'],
             'pv_checksum' => $data['pv_checksum'],
